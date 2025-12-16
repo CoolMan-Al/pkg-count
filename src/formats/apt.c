@@ -37,6 +37,7 @@ void sys_count()
                "    Manual: %d\n"
                "    Auto  : %d\n\n",
                total,
-               total - deps,deps);
+               total - deps,
+               deps);
     }
 }

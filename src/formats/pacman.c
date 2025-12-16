@@ -3,12 +3,11 @@
 
 #include <dirent.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 void sys_count()
 {
-    char *pacPath = "var/lib/pacman/local";
+    char *pacPath = "/var/lib/pacman/local";
     DIR *pacDir = opendir(pacPath);
 
     if (!pacDir)
@@ -18,39 +17,55 @@ void sys_count()
     {
         int total = 0, deps = 0;
         char pkgPath[256];
-        struct dirent *pkgEnt;
+        struct dirent *pacEnt;
 
-        while ((pkgEnt = readdir(pacDir)) != nullptr)
+        while ((pacEnt = readdir(pacDir)) != nullptr)
         {
-            if (strcmp(pkgEnt->d_name, ".") == 0 || strcmp(pkgEnt->d_name, "..")== 0)
+            if (strcmp(pacEnt->d_name, ".") == 0 || strcmp(pacEnt->d_name, "..")== 0)
                 continue;
-            if (pkgEnt->d_type != DT_DIR)
+            if (pacEnt->d_type != DT_DIR)
                 continue;
 
             strcpy(pkgPath, pacPath);
             strcat(pkgPath, "/");
-            strcat(pkgPath, pkgEnt->d_name);
+            strcat(pkgPath, pacEnt->d_name);
 
             DIR *pkgDir = opendir(pkgPath);
             if (!pkgDir)
                 die("Could not open package directory", 2);
 
-            struct dirent *dbEnt;
-            while ((dbEnt = readdir(pkgDir)) != nullptr)
+            struct dirent *pkgEnt;
+            while ((pkgEnt = readdir(pkgDir)) != nullptr)
             {
-                total++;
-                if (strcmp(dbEnt->d_name, "dest") == 0)
+                if (strcmp(pkgEnt->d_name, "desc") == 0)
                 {
-                    char destPath[256];
-                    strcpy(destPath, pkgPath);
-                    strcat(destPath, "/dest");
+                    total++;
+                    char descPath[256];
+                    strcpy(descPath, pkgPath);
+                    strcat(descPath, "/desc");
 
-                    FILE *destFile = fopen(destPath, "r");
-
+                    FILE *destFile = fopen(descPath, "r");
+                    char buffer[256];
+                    while (fgets(buffer, sizeof(buffer), destFile))
+                    {
+                        if (strcmp(buffer, "%REASON%\n") == 0)
+                        {
+                            deps++;
+                        }
+                    }
+                    fclose(destFile);
                 }
             }
             memset(pkgPath, 0, 256 * sizeof(char));
         }
         closedir(pacDir);
+
+        printf("Pacman:\n"
+               "  Total: %d\n"
+               "    Manual: %d\n"
+               "    Auto  : %d\n\n",
+               total,
+               total - deps,
+               deps);
     }
 }
