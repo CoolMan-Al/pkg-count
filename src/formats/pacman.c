@@ -2,12 +2,13 @@
 #include "../error.h"
 
 #include <dirent.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 void sys_count()
 {
-    char *pacPath = "var/lib/pacman/local/";
+    char *pacPath = "var/lib/pacman/local";
     DIR *pacDir = opendir(pacPath);
 
     if (!pacDir)
@@ -16,7 +17,7 @@ void sys_count()
     else
     {
         int total = 0, deps = 0;
-        char *pkgPath = calloc(512, sizeof(char));
+        char pkgPath[256];
         struct dirent *pkgEnt;
 
         while ((pkgEnt = readdir(pacDir)) != nullptr)
@@ -37,15 +38,19 @@ void sys_count()
             struct dirent *dbEnt;
             while ((dbEnt = readdir(pkgDir)) != nullptr)
             {
+                total++;
                 if (strcmp(dbEnt->d_name, "dest") == 0)
                 {
-                    continue;
+                    char destPath[256];
+                    strcpy(destPath, pkgPath);
+                    strcat(destPath, "/dest");
+
+                    FILE *destFile = fopen(destPath, "r");
+
                 }
             }
-
-            memset(pkgPath, 0, 512 * sizeof(char));
+            memset(pkgPath, 0, 256 * sizeof(char));
         }
         closedir(pacDir);
-        free(pkgPath);
     }
 }
