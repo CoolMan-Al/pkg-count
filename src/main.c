@@ -1,5 +1,7 @@
 #if defined(USE_APT)
 #   include "formats/apt.h"
+#elif defined(USE_RPM)
+#   include "formats/rpm.h"
 #elif defined(USE_PACMAN)
 #   include "formats/pacman.h"
 #else
