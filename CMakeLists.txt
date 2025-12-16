@@ -15,16 +15,16 @@ else()
 endif()
 
 add_executable(pkg_count
-        main.c
-        error.c
-        formats/flatpak.c
-        formats/snap.c
+        src/main.c
+        src/error.c
+        src/formats/flatpak.c
+        src/formats/snap.c
 )
 
 target_sources(pkg_count PRIVATE
-        $<$<BOOL:${ENABLE_APT}>:formats/apt.c>
-        $<$<BOOL:${ENABLE_PACMAN}>:formats/pacman.c>
-        $<$<BOOL:${ENABLE_NONE}>:formats/none.c>
+        $<$<BOOL:${ENABLE_APT}>:src/formats/apt.c>
+        $<$<BOOL:${ENABLE_PACMAN}>:src/formats/pacman.c>
+        $<$<BOOL:${ENABLE_NONE}>:src/formats/none.c>
 )
 
 if (ENABLE_APT)
