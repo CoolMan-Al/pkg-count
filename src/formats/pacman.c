@@ -44,16 +44,17 @@ void sys_count()
                     strcpy(descPath, pkgPath);
                     strcat(descPath, "/desc");
 
-                    FILE *destFile = fopen(descPath, "r");
-                    char buffer[256];
-                    while (fgets(buffer, sizeof(buffer), destFile))
+                    FILE *descFile = fopen(descPath, "r");
+                    char descBuf[16];
+                    while (fgets(descBuf, sizeof(descBuf), descFile))
                     {
-                        if (strcmp(buffer, "%REASON%\n") == 0)
+                        if (strcmp(descBuf, "%REASON%\n") == 0)
                         {
                             deps++;
+                            break;
                         }
                     }
-                    fclose(destFile);
+                    fclose(descFile);
                 }
             }
             memset(pkgPath, 0, 256 * sizeof(char));
