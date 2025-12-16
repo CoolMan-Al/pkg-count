@@ -1,3 +1,4 @@
+# Note: The code for deciding which package format to compile with was generated using Proton Lumo.
 cmake_minimum_required(VERSION 3.31)
 project(pkg_count C)
 set(CMAKE_C_STANDARD 23)
