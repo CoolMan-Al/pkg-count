@@ -7,7 +7,7 @@
 
 void sys_count()
 {
-    char *pacPath = "/var/lib/pacman/local";
+    char *pacPath = "/home/alzy/Downloads/";
     DIR *pacDir = opendir(pacPath);
 
     if (!pacDir)
@@ -27,7 +27,6 @@ void sys_count()
                 continue;
 
             strcpy(pkgPath, pacPath);
-            strcat(pkgPath, "/");
             strcat(pkgPath, pacEnt->d_name);
 
             DIR *pkgDir = opendir(pkgPath);
@@ -37,7 +36,7 @@ void sys_count()
             struct dirent *pkgEnt;
             while ((pkgEnt = readdir(pkgDir)) != nullptr)
             {
-                if (strcmp(pkgEnt->d_name, "desc") == 0)
+                if (strcmp(pkgEnt->d_name, "desc") == 0 && pkgEnt->d_type == DT_REG)
                 {
                     total++;
                     char descPath[256];
@@ -46,6 +45,7 @@ void sys_count()
 
                     FILE *descFile = fopen(descPath, "r");
                     char descBuf[16];
+
                     while (fgets(descBuf, sizeof(descBuf), descFile))
                     {
                         if (strcmp(descBuf, "%REASON%\n") == 0)
@@ -57,7 +57,7 @@ void sys_count()
                     fclose(descFile);
                 }
             }
-            memset(pkgPath, 0, 256 * sizeof(char));
+            memset(pkgPath, 0,sizeof(pkgPath));
         }
         closedir(pacDir);
 
