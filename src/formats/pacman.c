@@ -50,12 +50,8 @@ void sys_count()
                     {
                         if (strcmp(descBuf, "%REASON%\n") == 0)
                         {
-                            fgets(descBuf, sizeof(descBuf), descFile);
-                            if (strcmp(descBuf, "1\n") == 0)
-                            {
-                                deps++;
-                                break;
-                            }
+                            deps++;
+                            break;
                         }
                     }
                     fclose(descFile);
