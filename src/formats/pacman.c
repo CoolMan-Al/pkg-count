@@ -7,7 +7,7 @@
 
 void sys_count()
 {
-    char *pacPath = "/home/alzy/Downloads/";
+    char *pacPath = "/var/lib/pacman/local/";
     DIR *pacDir = opendir(pacPath);
 
     if (!pacDir)
