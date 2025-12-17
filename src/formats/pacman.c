@@ -21,10 +21,9 @@ void sys_count()
 
         while ((pacEnt = readdir(pacDir)) != nullptr)
         {
-            if (strcmp(pacEnt->d_name, ".") == 0 || strcmp(pacEnt->d_name, "..")== 0)
-                continue;
-            if (pacEnt->d_type != DT_DIR)
-                continue;
+            if (strcmp(pacEnt->d_name, ".") == 0 ||
+                strcmp(pacEnt->d_name, "..")== 0 ||
+                pacEnt->d_type != DT_DIR) continue;
 
             strcpy(pkgPath, pacPath);
             strcat(pkgPath, pacEnt->d_name);

@@ -13,31 +13,28 @@ void sys_count()
     if (!totalfile || !depfile)
         die("Could not open /var/lib/dpkg/status OR /var/lib/apt/extended_states", 2);
 
-    else
-    {
-        char *buffer = nullptr;
-        int total = 0, deps = 0;
+    char *buffer = nullptr;
+    int total = 0, deps = 0;
 
-        size_t len = 0;
-        while (getline(&buffer, &len, totalfile) != -1)
-            if (strstr(buffer, "Package: "))
-                total++;
+    size_t len = 0;
+    while (getline(&buffer, &len, totalfile) != -1)
+        if (strstr(buffer, "Package: "))
+            total++;
 
-        len = 0;
-        while (getline(&buffer, &len, depfile) != -1)
-            if (strstr(buffer, "Package: "))
-                deps++;
+    len = 0;
+    while (getline(&buffer, &len, depfile) != -1)
+        if (strstr(buffer, "Package: "))
+            deps++;
 
-        fclose(totalfile);
-        fclose(depfile);
-        free(buffer);
+    fclose(totalfile);
+    fclose(depfile);
+    free(buffer);
 
-        printf("Dpkg:\n"
-               "  Total: %d\n"
-               "    Manual: %d\n"
-               "    Auto  : %d\n\n",
-               total,
-               total - deps,
-               deps);
-    }
+    printf("Dpkg:\n"
+           "  Total: %d\n"
+           "    Manual: %d\n"
+           "    Auto  : %d\n\n",
+           total,
+           total - deps,
+           deps);
 }

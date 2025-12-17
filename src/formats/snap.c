@@ -13,21 +13,19 @@ void snap_count()
     if (!appdir || !totaldir)
         die( "Could not open snapd directories", 2);
 
-    else
-    {
-        int apps = -2, total = -2;
-        while (readdir(appdir) != nullptr) apps++;
-        while (readdir(totaldir) != nullptr) total++;
+    // Init as -2 because . and .. count
+    int apps = -2, total = -2;
+    while (readdir(appdir) != nullptr) apps++;
+    while (readdir(totaldir) != nullptr) total++;
 
-        closedir(appdir);
-        closedir(totaldir);
+    closedir(appdir);
+    closedir(totaldir);
 
-        printf("Snap:\n"
-               "  Total: %d\n"
-               "    App    : %d\n"
-               "    Runtime: %d\n\n",
-               total,
-               apps,
-               total - apps);
-    }
+    printf("Snap:\n"
+           "  Total: %d\n"
+           "    App    : %d\n"
+           "    Runtime: %d\n\n",
+           total,
+           apps,
+           total - apps);
 }
