@@ -15,18 +15,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define VERSION 0.3
-
-void print_count()
-{
-    sys_count();
-
-    if (access("/usr/bin/flatpak", X_OK) == 0)
-        flat_count();
-
-    if (access("/usr/bin/snap", X_OK) == 0)
-        snap_count();
-}
+#define VERSION 0.4
 
 int main(int argc, char *argv[])
 {
@@ -44,5 +33,14 @@ int main(int argc, char *argv[])
             printf("pkg_count: Unknown Option '%s'\n"
                    "Try pkg_count --help for more information.", argv[1]);
     }
-    else print_count();
+    else
+    {
+        sys_count();
+
+        if (access("/usr/bin/flatpak", X_OK) == 0)
+            flat_count();
+
+        if (access("/usr/bin/snap", X_OK) == 0)
+            snap_count();
+    }
 }
