@@ -1,5 +1,5 @@
-#include "apt.h"
-#include "../error.h"
+#include "../apt.h"
+#include "../../error.h"
 
 #include <stdio.h>
 #include <stdlib.h>
