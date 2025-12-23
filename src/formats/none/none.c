@@ -1,5 +1,5 @@
 #include "none.h"
-#include "../error.h"
+#include "../../error.h"
 
 void sys_count()
 {

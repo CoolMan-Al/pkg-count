@@ -1,5 +1,5 @@
 #include "flatpak.h"
-#include "../error.h"
+#include "../../error.h"
 
 #include <stdio.h>
 #include <dirent.h>

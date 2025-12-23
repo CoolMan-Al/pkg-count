@@ -21,15 +21,15 @@ endif()
 add_executable(pkg-count
         src/main.c
         src/error.c
-        src/formats/flatpak.c
-        src/formats/snap.c
+        src/formats/flatpak/flatpak.c
+        src/formats/snap/snap.c
 )
 
 target_sources(pkg-count PRIVATE
-        $<$<BOOL:${ENABLE_APT}>:src/formats/apt.c>
-        $<$<BOOL:${ENABLE_RPM}>:src/formats/rpm.c>
-        $<$<BOOL:${ENABLE_PACMAN}>:src/formats/pacman.c>
-        $<$<BOOL:${ENABLE_NONE}>:src/formats/none.c>
+        $<$<BOOL:${ENABLE_APT}>:src/formats/debian/apt.c>
+        $<$<BOOL:${ENABLE_RPM}>:src/formats/fedora/rpm.c>
+        $<$<BOOL:${ENABLE_PACMAN}>:src/formats/arch/pacman.c>
+        $<$<BOOL:${ENABLE_NONE}>:src/formats/none/none.c>
 )
 
 if (ENABLE_APT)

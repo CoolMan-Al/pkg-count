@@ -1,15 +1,15 @@
 #if defined(USE_APT)
-#include "formats/dpkg/apt.h"
+#include "formats/debian/apt.h"
 #elif defined(USE_RPM)
 #   include "formats/rpm.h"
 #elif defined(USE_PACMAN)
-#   include "formats/pacman.h"
+#include "formats/arch/pacman.h"
 #else
 #   include "formats/none.h"
 #endif
 
-#include "formats/flatpak.h"
-#include "formats/snap.h"
+#include "formats/flatpak/flatpak.h"
+#include "formats/snap/snap.h"
 
 #include <stdio.h>
 #include <string.h>
