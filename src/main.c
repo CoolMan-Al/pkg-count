@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
 
         else if (strcmp(argv[1], "--help") ==0 || strcmp(argv[1], "-h") == 0)
             printf("Usage: pkg_count [OPTION]\n"
-                   "  -v, --version\toutput version information and exit"
-                   "  -h, --help\tdisplay this page and exit");
+                   "  -v, --version\t"  "output version information and exit\n"
+                   "  -h, --help\t"     "display this page and exit\n");
 
         else
             printf("pkg_count: Unknown Option '%s'\n"
