@@ -5,7 +5,7 @@
 #elif defined(USE_PACMAN)
 #include "formats/arch/pacman.h"
 #else
-#   include "formats/none.h"
+#   include "formats/none/none.h"
 #endif
 
 #include "formats/flatpak/flatpak.h"
@@ -43,4 +43,5 @@ int main(int argc, char *argv[])
         if (access("/usr/bin/snap", X_OK) == 0)
             snap_count();
     }
+    return 0;
 }

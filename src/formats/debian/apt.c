@@ -13,7 +13,7 @@ void sys_count()
     if (!totalfile || !depfile)
         die("Could not open /var/lib/dpkg/status OR /var/lib/apt/extended_states", 2);
 
-    char *buffer = nullptr;
+    char *buffer = NULL;
     int total = 0, deps = 0;
 
     size_t len = 0;

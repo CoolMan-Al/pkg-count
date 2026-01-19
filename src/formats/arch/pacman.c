@@ -1,4 +1,4 @@
-#include "../pacman.h"
+#include "pacman.h"
 #include "../../error.h"
 
 #include <dirent.h>
@@ -19,7 +19,7 @@ void sys_count()
         char pkgPath[256];
         struct dirent *pacEnt;
 
-        while ((pacEnt = readdir(pacDir)) != nullptr)
+        while ((pacEnt = readdir(pacDir)) != NULL)
         {
             if (strcmp(pacEnt->d_name, ".") == 0 ||
                 strcmp(pacEnt->d_name, "..")== 0 ||
@@ -33,7 +33,7 @@ void sys_count()
                 die("Could not open package directory", 2);
 
             struct dirent *pkgEnt;
-            while ((pkgEnt = readdir(pkgDir)) != nullptr)
+            while ((pkgEnt = readdir(pkgDir)) != NULL)
             {
                 if (strcmp(pkgEnt->d_name, "desc") == 0 && pkgEnt->d_type == DT_REG)
                 {

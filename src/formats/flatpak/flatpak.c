@@ -14,8 +14,8 @@ void flat_count()
 
     // Init as -2 because . and .. count
     int apps = -2, runs = -2;
-    while (readdir(appdir) != nullptr) apps++;
-    while (readdir(rundir) != nullptr) runs++;
+    while (readdir(appdir) != NULL) apps++;
+    while (readdir(rundir) != NULL) runs++;
 
     closedir(appdir);
     closedir(rundir);
