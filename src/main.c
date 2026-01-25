@@ -1,11 +1,11 @@
 #if defined(USE_APT)
 #include "formats/debian/apt.h"
 #elif defined(USE_RPM)
-#   include "formats/rpm.h"
+#include "formats/fedora/rpm.h"
 #elif defined(USE_PACMAN)
 #include "formats/arch/pacman.h"
 #else
-#   include "formats/none/none.h"
+#include "formats/none/none.h"
 #endif
 
 #include "formats/flatpak/flatpak.h"
@@ -24,14 +24,17 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)
             printf("Package Counter\nVersion: %.2f\n", VERSION);
 
-        else if (strcmp(argv[1], "--help") ==0 || strcmp(argv[1], "-h") == 0)
+        else if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0)
             printf("Usage: pkg_count [OPTION]\n"
-                   "  -v, --version\t"  "output version information and exit\n"
-                   "  -h, --help\t"     "display this page and exit\n");
+                   "  -v, --version\t"
+                   "output version information and exit\n"
+                   "  -h, --help\t"
+                   "display this page and exit\n");
 
         else
             printf("pkg_count: Unknown Option '%s'\n"
-                   "Try pkg_count --help for more information.", argv[1]);
+                   "Try pkg_count --help for more information.",
+                   argv[1]);
     }
     else
     {

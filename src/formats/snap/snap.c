@@ -1,7 +1,7 @@
 #include "snap.h"
 
-#include <stdio.h>
 #include <dirent.h>
+#include <stdio.h>
 
 #include "../../error.h"
 
@@ -11,12 +11,14 @@ void snap_count()
     DIR *totaldir = opendir("/var/lib/snapd/snaps");
 
     if (!appdir || !totaldir)
-        die( "Could not open snapd directories", 2);
+        die("Could not open snapd directories", 2);
 
     // Init as -2 because . and .. count
     int apps = -2, total = -2;
-    while (readdir(appdir) != nullptr) apps++;
-    while (readdir(totaldir) != nullptr) total++;
+    while (readdir(appdir) != NULL)
+        apps++;
+    while (readdir(totaldir) != NULL)
+        total++;
 
     closedir(appdir);
     closedir(totaldir);

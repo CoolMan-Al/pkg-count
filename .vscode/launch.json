@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}/build/${workspaceFolderBasename}",
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "CMake: Build Debug"
+            "preLaunchTask": "Build"
         }
     ]
 }

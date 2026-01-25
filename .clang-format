@@ -1,0 +1,6 @@
+# .clang-format
+BasedOnStyle: llvm          # start from a sensible baseline
+IndentWidth: 4              # four‑space indents, no tabs
+UseTab: Never               # enforce spaces only
+BreakBeforeBraces: Allman   # opening brace on its own line for all constructs
+ColumnLimit: 0              # (optional) disable line‑length enforcement

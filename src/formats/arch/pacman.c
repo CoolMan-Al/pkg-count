@@ -22,8 +22,9 @@ void sys_count()
         while ((pacEnt = readdir(pacDir)) != NULL)
         {
             if (strcmp(pacEnt->d_name, ".") == 0 ||
-                strcmp(pacEnt->d_name, "..")== 0 ||
-                pacEnt->d_type != DT_DIR) continue;
+                strcmp(pacEnt->d_name, "..") == 0 ||
+                pacEnt->d_type != DT_DIR)
+                continue;
 
             strcpy(pkgPath, pacPath);
             strcat(pkgPath, pacEnt->d_name);
@@ -56,7 +57,7 @@ void sys_count()
                     fclose(descFile);
                 }
             }
-            memset(pkgPath, 0,sizeof(pkgPath));
+            memset(pkgPath, 0, sizeof(pkgPath));
         }
         closedir(pacDir);
 

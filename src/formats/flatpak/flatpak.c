@@ -1,8 +1,8 @@
 #include "flatpak.h"
 #include "../../error.h"
 
-#include <stdio.h>
 #include <dirent.h>
+#include <stdio.h>
 
 void flat_count()
 {
@@ -14,8 +14,10 @@ void flat_count()
 
     // Init as -2 because . and .. count
     int apps = -2, runs = -2;
-    while (readdir(appdir) != NULL) apps++;
-    while (readdir(rundir) != NULL) runs++;
+    while (readdir(appdir) != NULL)
+        apps++;
+    while (readdir(rundir) != NULL)
+        runs++;
 
     closedir(appdir);
     closedir(rundir);
