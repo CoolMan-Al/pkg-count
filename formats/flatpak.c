@@ -23,10 +23,10 @@ void flat_count()
     closedir(rundir);
 
     printf("Flatpak:\n"
-           "  Total: %d\n"
-           "    App    : %d\n"
-           "    Runtime: %d\n\n",
-           apps + runs,
-           apps,
-           runs);
+    "  Total: %d\n"
+    "    App    : %d\n"
+    "    Runtime: %d\n\n",
+    apps + runs,
+    apps,
+    runs);
 }

@@ -3,7 +3,7 @@
 #include <dirent.h>
 #include <stdio.h>
 
-#include "../../error.h"
+#include "../error.h"
 
 void snap_count()
 {

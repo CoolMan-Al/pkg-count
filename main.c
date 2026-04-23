@@ -4,8 +4,6 @@
 #include "formats/fedora/rpm.h"
 #elif defined(USE_PACMAN)
 #include "formats/arch/pacman.h"
-#else
-#include "formats/none/none.h"
 #endif
 
 #include "formats/flatpak/flatpak.h"
