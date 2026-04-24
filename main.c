@@ -1,8 +1,8 @@
 #if defined(APT)
     #include "formats/apt.h"
-    define
-#elif defined(PAC)
+#elif defined(PACMAN)
     #include "formats/pacman.h"
+#elif defined(PORTAGE)
 #endif
 
 #include "formats/flatpak.h"

@@ -1,7 +1,8 @@
-CC=gcc
-
-apt:
-	${CC} main.c formats/flatpak.c formats/snap.c formats/apt.c error.c -DAPT -o pkg_count
-
-pac:
-	${CC} main.c formats/flatpak.c formats/snap.c formats/pacman.c error.c -DPAC -o pkg_count
+CC = gcc -o pkg_count
+CFLAGS ?=
+apt :
+	${CC} ${CFLAGS} main.c formats/flatpak.c formats/snap.c formats/apt.c error.c -DAPT
+pacman :
+	${CC} ${CFLAGS} main.c formats/flatpak.c formats/snap.c formats/pacman.c error.c -DPACMAN
+portage:
+	${CC} ${CFLAGS} main.c formats/flatpak.c formats/snap.c formats/portage.c error.c -DPORTAGE
