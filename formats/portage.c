@@ -10,29 +10,29 @@ void sys_count()
 {
     FILE *worldFile = fopen("/var/lib/portage/world", "r");
     char *pkgPath = "/var/db/pkg";
-    DIR *alldir = opendir(pkgPath);
+    DIR *pkgDir = opendir(pkgPath);
 
-    if (!worldFile || !alldir)
+    if (!worldFile || !pkgDir)
         die("Could not open /var/lib/portage/world or var/db/pkg", 2);
 
     char *buffer = NULL;
     size_t len = 0;
-    int manual = 0, total = 0;
+    int world = 0, total = 0;
 
     while (getline(&buffer, &len, worldFile) != -1)
-            manual++;
+            world++;
 
-    struct dirent *categoryName;
+    struct dirent *pkgCategory;
     buffer = malloc(256 * sizeof(char));
-    while ((categoryName = readdir(alldir)) != NULL)
+    while ((pkgCategory = readdir(pkgDir)) != NULL)
     {
-        if (strcmp(categoryName->d_name, ".") == 0 ||
-            strcmp(categoryName->d_name, "..") == 0 ||
-            categoryName->d_type != DT_DIR) continue;
+        if (strcmp(pkgCategory->d_name, ".") == 0 ||
+            strcmp(pkgCategory->d_name, "..") == 0 ||
+            pkgCategory->d_type != DT_DIR) continue;
         
         strcpy(buffer, pkgPath);
         strcat(buffer, "/");
-        strcat(buffer, categoryName->d_name);
+        strcat(buffer, pkgCategory->d_name);
 
         DIR *categoryPath = opendir(buffer);
         struct dirent *pkgName;
@@ -42,19 +42,18 @@ void sys_count()
             if (strcmp(pkgName->d_name, ".") == 0 ||
                 strcmp(pkgName->d_name, "..") == 0 ||
                 pkgName->d_type != DT_DIR) continue;
-            
             total++;
         }
         closedir(categoryPath);
     }
-    closedir(alldir);
+    closedir(pkgDir);
     free(buffer);
 
     printf("Portage:\n"
            "  Total: %d\n"
-           "    Manual: %d\n"
-           "    Auto: %d\n",
+           "    World: %d\n"
+           "    Dep  : %d\n",
            total,
-           manual,
-           total - manual);
+           world,
+           total - world);
 }
