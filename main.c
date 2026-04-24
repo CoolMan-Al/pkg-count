@@ -3,6 +3,7 @@
 #elif defined(PACMAN)
     #include "formats/pacman.h"
 #elif defined(PORTAGE)
+    #include "formats/portage.h"
 #endif
 
 #include "formats/flatpak.h"

@@ -13,9 +13,9 @@ void sys_count()
     if (!totalfile || !depfile)
         die("Could not open /var/lib/dpkg/status OR /var/lib/apt/extended_states", 2);
 
-    char *buffer = NULL;
     int total = 0, deps = 0;
-
+    
+    char *buffer = NULL;
     size_t len = 0;
     while (getline(&buffer, &len, totalfile) != -1)
         if (strstr(buffer, "Package: "))

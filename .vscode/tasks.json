@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "make",
             "args": [
-                "apt",
+                "portage",
                 "CFLAGS=\"-g -O0\""
             ],
         },

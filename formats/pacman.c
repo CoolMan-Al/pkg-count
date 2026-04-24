@@ -23,8 +23,7 @@ void sys_count()
         {
             if (strcmp(pacEnt->d_name, ".") == 0 ||
                 strcmp(pacEnt->d_name, "..") == 0 ||
-                pacEnt->d_type != DT_DIR)
-                continue;
+                pacEnt->d_type != DT_DIR) continue;
 
             strcpy(pkgPath, pacPath);
             strcat(pkgPath, pacEnt->d_name);
