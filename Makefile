@@ -1,6 +1,7 @@
 CC=gcc
 
-deb:
-    ${CC} main.c formats/apt.c -o pkg_count
+apt:
+	${CC} main.c formats/flatpak.c formats/snap.c formats/apt.c error.c -DAPT -o pkg_count
 
-clean:
+pac:
+	${CC} main.c formats/flatpak.c formats/snap.c formats/pacman.c error.c -DPAC -o pkg_count
