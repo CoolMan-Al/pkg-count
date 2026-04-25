@@ -9,18 +9,17 @@
 void sys_count()
 {
     FILE *worldFile = fopen("/var/lib/portage/world", "r");
+
     char *pkgPath = "/var/db/pkg";
     DIR *pkgDir = opendir(pkgPath);
 
     if (!worldFile || !pkgDir)
         die("Could not open /var/lib/portage/world or var/db/pkg", 2);
 
-    char *buffer = NULL;
-    size_t len = 0;
     int world = 0, total = 0;
 
-    while (getline(&buffer, &len, worldFile) != -1)
-            world++;
+    char *buffer = NULL; size_t len = 0;
+    while (getline(&buffer, &len, worldFile) != -1) world++;
 
     struct dirent *pkgCategory;
     buffer = malloc(256 * sizeof(char));
@@ -28,7 +27,8 @@ void sys_count()
     {
         if (strcmp(pkgCategory->d_name, ".") == 0 ||
             strcmp(pkgCategory->d_name, "..") == 0 ||
-            pkgCategory->d_type != DT_DIR) continue;
+            pkgCategory->d_type != DT_DIR) 
+        continue;
         
         strcpy(buffer, pkgPath);
         strcat(buffer, "/");
@@ -41,7 +41,8 @@ void sys_count()
         {
             if (strcmp(pkgName->d_name, ".") == 0 ||
                 strcmp(pkgName->d_name, "..") == 0 ||
-                pkgName->d_type != DT_DIR) continue;
+                pkgName->d_type != DT_DIR) 
+            continue;
             total++;
         }
         closedir(categoryPath);

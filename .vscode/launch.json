@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
-            "type": "lldb",
+            "type": "gdb",
             "request": "launch",
-            "program": "${workspaceRoot}/pkg_count",
-            "args": [],
+            "name": "Launch",
+            "target": "./pkg_count",
             "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText",
             "preLaunchTask": "Make"
-        }
+        } 
     ]
 }

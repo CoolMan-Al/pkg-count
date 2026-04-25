@@ -3,42 +3,65 @@
 
 #include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 
-void flat_count()
+void flCounter(int *apps, int *runs, char *appPath, char *runPath) 
 {
-    char *sysPath = "/var/lib/flatpak";
-    char *usrPath = "~/.local/share/flatpak";
-
-    char *apps = "/app";
-    char *runs = "/runtime";
-
-    char appPath[32];
-    char runPath[32];
-
-    
     DIR *appDir = opendir(appPath);
     DIR *runDir = opendir(runPath);
 
     if (!appDir || !runDir)
-        die("Could not open app or runtime directory", 2);
+        return;
 
-    // Init as -2 because . and .. count
-    int apps = -2, runs = -2;
-    while (readdir(appDir) != NULL)
-        apps++;
-    while (readdir(runDir) != NULL)
-        runs++;
+    struct dirent *entry;
+
+    while ((entry = readdir(appDir)) != NULL) 
+    {
+        if (strcmp(entry->d_name, ".") == 0 ||
+            strcmp(entry->d_name, "..") == 0 ||
+            entry->d_type != DT_DIR) 
+        continue;
+        (*apps)++;
+    }
+        
+    while ((entry = readdir(runDir)) != NULL) 
+    {
+        if (strcmp(entry->d_name, ".") == 0 ||
+            strcmp(entry->d_name, "..") == 0 ||
+            entry->d_type != DT_DIR) 
+        continue;
+        (*runs)++;
+    }
 
     closedir(appDir);
     closedir(runDir);
+}
 
-    printf("Flatpak:\n"
-    "  Total: %d\n"
-    "    App    : %d\n"
-    "    Runtime: %d\n\n",
-    apps + runs,
-    apps,
-    runs);
+void flat_count()
+{
+    char *sysApps = "/var/lib/flatpak/app";
+    char *sysRuns = "/var/lib/flatpak/runtime";
+    
+    char *home_dir = getenv("HOME"); 
+
+    char usrApps[64]; 
+    strcpy(usrApps,home_dir);
+    strcat(usrApps,"/.local/share/flatpak/app");
+
+    char usrRuns[64];
+    strcpy(usrRuns,home_dir);
+    strcat(usrRuns,"/.local/share/flatpak/runtime");
+
+    int apps = 0, runs = 0;
+    flCounter(&apps, &runs, sysApps, sysRuns);
+    flCounter(&apps, &runs, usrApps, usrRuns);
+   
+    printf( "Flatpak:\n"
+            "  Total: %d\n"
+            "    App    : %d\n"
+            "    Runtime: %d\n\n",
+            apps + runs,
+            apps,
+            runs);
 }
